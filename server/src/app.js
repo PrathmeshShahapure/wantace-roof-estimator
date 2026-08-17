@@ -1,10 +1,16 @@
 import express from "express";
 import cors from "cors";
-import config from "dotenv/config"
+
+import configRoutes from "./routes/config.routes.js";
+import estimateRoutes from "./routes/estimate.routes.js";
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+app.use("/api/config", configRoutes);
+app.use("/api/estimate", estimateRoutes);
 
 app.get("/api/health", (req, res) => {
   res.json({
@@ -12,8 +18,5 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-const PORT = process.env.PORT ;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+export default app;
