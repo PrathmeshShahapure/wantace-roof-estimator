@@ -1,14 +1,9 @@
 import pool from "../db/index.js";
+import { calculateEstimate } from "./estimate.service.js";
 
-export const createLead = async ({
-  name,
-  phone,
-  email,
-  answers,
-  estimate_low,
-  estimate_high,
-  config_version,
-}) => {
+export const createLead = async ({ name, phone, email, answers }) => {
+  const estimate = await calculateEstimate(answers);
+
   const result = await pool.query(
     `
       INSERT INTO leads (
@@ -37,9 +32,9 @@ export const createLead = async ({
       phone,
       email || null,
       answers,
-      estimate_low,
-      estimate_high,
-      config_version,
+      estimate.estimate_low,
+      estimate.estimate_high,
+      3,
     ],
   );
 
