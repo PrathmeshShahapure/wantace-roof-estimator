@@ -3,6 +3,7 @@ import cors from "cors";
 
 import configRoutes from "./routes/config.routes.js";
 import estimateRoutes from "./routes/estimate.routes.js";
+import leadRoutes from "./routes/lead.routes.js";
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(express.json());
 
 app.use("/api/config", configRoutes);
 app.use("/api/estimate", estimateRoutes);
+app.use("/api/leads", leadRoutes);
 
 app.get("/api/health", (req, res) => {
   res.json({
